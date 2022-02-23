@@ -9,11 +9,12 @@ import {
 } from '@/components';
 import BellSVG from '@/assets/bell.svg';
 import { ListTypeEnum } from '@/components/ListSwitch';
-import { Document } from '@/components/CellCard';
-import data from '../../../data.mock.js';
+import { Document, useAPI } from '@/context/APIContext';
 
 export default function Home() {
 	const [listType, setListType] = useState<ListTypeEnum>(ListTypeEnum.CELLS);
+
+	const { APIItems, APILoading, getData } = useAPI();
 
 	const renderItem = ({ item, index }: { item: Document; index: number }) => (
 		<CellCard document={item} listType={listType} position={index} />
@@ -44,7 +45,7 @@ export default function Home() {
 					<ListSwitch switchType={setListType} type={listType} />
 				</Container>
 				<FlatList
-					data={data}
+					data={APIItems}
 					renderItem={renderItem}
 					keyExtractor={keyExtractor}
 					numColumns={listType === ListTypeEnum.LIST ? 1 : 2}
@@ -52,6 +53,8 @@ export default function Home() {
 					contentContainerStyle={{
 						paddingHorizontal: 15,
 					}}
+					refreshing={APILoading}
+					onRefresh={getData}
 				/>
 			</Container>
 			<Container

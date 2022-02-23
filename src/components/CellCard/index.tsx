@@ -4,16 +4,7 @@ import Text from '../Text';
 import UsersSVG from '@/assets/users.svg';
 import LinkSVG from '@/assets/link.svg';
 import { ListTypeEnum } from '../ListSwitch';
-
-export type Document = {
-	Attachments: Array<string>;
-	Contributors: Array<{ ID: string; Name: string }>;
-	CreatedAt: string;
-	ID: string;
-	Title: string;
-	UpdatedAt: string;
-	Version: string;
-};
+import { Document } from '@/context/APIContext';
 
 type Props = {
 	document: Document;
@@ -45,9 +36,11 @@ export default function CellCard({
 				}}
 			>
 				<Container flexDirection='row'>
-					<Text fontWeight='bold' color='#333333'>
-						{Title}
-					</Text>
+					<Container flex={1}>
+						<Text fontWeight='bold' color='#333333' numberOfLines={1}>
+							{Title}
+						</Text>
+					</Container>
 					<Container ml={2} justifyContent='flex-end'>
 						<Text color='grey' fontWeight='bold' fontSize={10}>
 							{`Version ${Version}`}
@@ -80,7 +73,7 @@ export default function CellCard({
 						</Text>
 						<Container width={1} pt={2}>
 							{Attachments.map((att) => (
-								<Text color='grey' key={att}>
+								<Text color='grey' key={`${att}${Math.random() * 100}`}>
 									{att}
 								</Text>
 							))}
