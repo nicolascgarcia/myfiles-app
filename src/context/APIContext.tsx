@@ -10,10 +10,16 @@ import React, {
 import { showMessage } from 'react-native-flash-message';
 import { faker } from '@faker-js/faker';
 import notificationsWebsocket from '@/hooks/notificationsWebsocket';
+import { sortByDate, sortByTitle } from '@/helpers/sortFunctions';
 
 type Props = {
 	children: ReactElement;
 };
+
+export enum SortEnum {
+	'TITLE',
+	'RECENT',
+}
 
 type Contributors = { ID: string; Name: string };
 
@@ -32,22 +38,30 @@ type APIContextType = {
 	APIItems: Array<Document>;
 	getData: () => void;
 	addData: (title: string, version: string) => void;
+	sortData: (type: SortEnum) => void;
 };
 
 export const APIContext = createContext<APIContextType>({
 	APILoading: false,
 	getData: () => {},
 	addData: () => {},
+	sortData: () => {},
 	APIItems: [],
 });
 
 export const useAPI = () => useContext<APIContextType>(APIContext);
 
 export default function APIManager({ children }: Props) {
+	notificationsWebsocket({ showMessage });
+
 	const [APIItems, setAPIItems] = useState<Array<Document>>([]);
 	const [APILoading, setAPILoading] = useState<boolean>(false);
 
-	notificationsWebsocket({ showMessage });
+	const sortData = (type: SortEnum): void => {
+		const currentItems = [...APIItems];
+		if (type === SortEnum.RECENT) setAPIItems(currentItems.sort(sortByDate));
+		if (type === SortEnum.TITLE) setAPIItems(currentItems.sort(sortByTitle));
+	};
 
 	const addData = (title: string, version: string) => {
 		const contributors: Contributors[] = Array.from(
@@ -76,7 +90,7 @@ export default function APIManager({ children }: Props) {
 		fetch(API_URI, { method: 'get' })
 			.then((res) => {
 				res.json().then((data) => {
-					setAPIItems(data);
+					setAPIItems(data.sort(sortByTitle));
 				});
 			})
 			.catch(() => {
@@ -102,6 +116,7 @@ export default function APIManager({ children }: Props) {
 				APILoading,
 				getData,
 				addData,
+				sortData,
 				APIItems,
 			}}
 		>
