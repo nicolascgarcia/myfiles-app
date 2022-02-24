@@ -1,6 +1,10 @@
 # MyFiles
 
-I have developed a simple File Management app using React Native with TypeScript, focusing only on Android (I don't have any Apple computer to be able to develop for IOS). In this app you can see a list of documents and display it as a list or grid. You can sort this list alphabetically or by most recents. When adding a document, it displays a bottom sheet modal with a form to create a new document. Also, it is connected to a websocket so the app notifies when a new document is added by other user.
+I have developed a simple File Management app using React Native with TypeScript, focusing only on Android (I don't have any Apple computer to be able to develop for IOS). In this app you can see a list of documents and display it as a list or grid. You can sort this list alphabetically or by most recents. When adding a document, it displays a bottom sheet modal with a form to create a new document. Also, it is connected to a websocket so the app notifies when a new document is added by other user. The list can be pulled to refresh and each item in list view can be shared.
+
+![image](https://user-images.githubusercontent.com/60199944/155543213-51184aa6-6424-446c-a19a-236b8f2037da.png)
+![image](https://user-images.githubusercontent.com/60199944/155543000-f04c0b80-2f8d-4477-96e5-ee839d7baab1.png)
+
 
 ## How to use
 
