@@ -9,7 +9,8 @@ import Animated, {
 import { SortEnum, useAPI } from '@/context/APIContext';
 import Container from '../Container';
 import Text from '../Text';
-import SPRING_CONFIG from '../utils/springConfig';
+import SPRING_CONFIG from '@/utils/springConfig';
+import { animatedViewStyle } from './style';
 
 export default function SortButton() {
 	const { sortData } = useAPI();
@@ -52,28 +53,7 @@ export default function SortButton() {
 					</Text>
 				</Container>
 			</TouchableOpacity>
-			<Animated.View
-				style={[
-					{
-						backgroundColor: 'white',
-						position: 'absolute',
-						top: 60,
-						zIndex: 1,
-						paddingVertical: 10,
-						paddingHorizontal: 20,
-						borderRadius: 10,
-						shadowColor: '#000',
-						shadowOffset: {
-							width: 0,
-							height: 4,
-						},
-						shadowOpacity: 0.3,
-						shadowRadius: 4.65,
-						elevation: 8,
-					},
-					style,
-				]}
-			>
+			<Animated.View style={[animatedViewStyle, style]}>
 				<TouchableOpacity onPress={sortByTitle} style={{ marginBottom: 5 }}>
 					<Text fontWeight='bold' fontSize={16} color='#333333'>
 						A - Z

@@ -9,8 +9,9 @@ import LinkSVG from '@/assets/link.svg';
 import ShareSVG from '@/assets/share.svg';
 import { ListTypeEnum } from '../ListSwitch';
 import { Document } from '@/context/APIContext';
+import { shadowStyle } from './style';
 
-type Props = {
+type CellCardProps = {
 	document: Document;
 	listType: ListTypeEnum;
 	position: number;
@@ -20,7 +21,7 @@ export default function CellCard({
 	document: { Attachments, Contributors, Title, Version, CreatedAt },
 	listType,
 	position,
-}: Props) {
+}: CellCardProps) {
 	const onShare = async (): Promise<void> => {
 		try {
 			await Share.share({
@@ -120,16 +121,7 @@ export default function CellCard({
 			borderRadius={5}
 			mr={position % 2 === 0 ? 3 : 0}
 			p={3}
-			style={{
-				shadowColor: '#000',
-				shadowOffset: {
-					width: 0,
-					height: 2,
-				},
-				shadowOpacity: 0.25,
-				shadowRadius: 3.84,
-				elevation: 6,
-			}}
+			style={shadowStyle}
 			flex={1 / 2}
 		>
 			<Text fontWeight='bold' color='#333333'>

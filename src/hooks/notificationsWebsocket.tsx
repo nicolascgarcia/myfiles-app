@@ -3,11 +3,13 @@ import { useRef, useEffect } from 'react';
 import { MessageOptions } from 'react-native-flash-message';
 import { WEBHOOK_URI } from '@env';
 
-type Props = {
+type NotificationWebsocketProps = {
 	showMessage: (options: MessageOptions) => void;
 };
 
-export default function notificationsWebsocket({ showMessage }: Props) {
+export default function notificationsWebsocket({
+	showMessage,
+}: NotificationWebsocketProps) {
 	const ws = useRef(new WebSocket(WEBHOOK_URI)).current;
 
 	useEffect(() => {
