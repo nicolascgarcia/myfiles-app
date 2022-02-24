@@ -51,22 +51,18 @@ export default function APIManager({ children }: Props) {
 
 	const addData = (title: string, version: string) => {
 		const contributors: Contributors[] = Array.from(
-			{ length: Math.floor(Math.random() * 5) },
+			{ length: Math.floor(Math.random() * 3) },
 			() => ({ ID: faker.datatype.uuid(), Name: faker.name.findName() })
-		);
-
-		const attachments: string[] = Array.from(
-			faker.random.arrayElements(['Pilsner', 'Merican Aple', 'Super Bock'])
 		);
 
 		const newData: Document = {
 			ID: faker.datatype.uuid(),
 			Title: title,
 			Version: version,
-			Attachments: attachments,
+			Attachments: ['Pilsner', 'Merican Aple', 'Super Bock'],
 			Contributors: contributors,
-			CreatedAt: faker.date.recent(5).toISOString(),
-			UpdatedAt: faker.date.recent(5).toISOString(),
+			CreatedAt: new Date().toISOString(),
+			UpdatedAt: new Date().toISOString(),
 		};
 
 		const currentItems = [newData, ...APIItems];
