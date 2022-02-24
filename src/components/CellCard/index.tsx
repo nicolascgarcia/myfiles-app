@@ -1,4 +1,5 @@
 import React from 'react';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import Container from '../Container';
 import Text from '../Text';
 import UsersSVG from '@/assets/users.svg';
@@ -13,7 +14,7 @@ type Props = {
 };
 
 export default function CellCard({
-	document: { Attachments, Contributors, Title, Version },
+	document: { Attachments, Contributors, Title, Version, CreatedAt },
 	listType,
 	position,
 }: Props) {
@@ -47,7 +48,7 @@ export default function CellCard({
 						</Text>
 					</Container>
 				</Container>
-				<Container mt={2} flexDirection='row'>
+				<Container my={2} flexDirection='row'>
 					<Container flex={1} flexDirection='row' flexWrap='wrap'>
 						<Container justifyContent='center' mr={2}>
 							<UsersSVG width={15} height={15} />
@@ -63,7 +64,6 @@ export default function CellCard({
 							))}
 						</Container>
 					</Container>
-
 					<Container flex={1} flexDirection='row' flexWrap='wrap'>
 						<Container justifyContent='center' mr={2}>
 							<LinkSVG width={15} height={15} />
@@ -80,6 +80,9 @@ export default function CellCard({
 						</Container>
 					</Container>
 				</Container>
+				<Text color='grey'>{`Created ${formatDistanceToNow(
+					new Date(CreatedAt)
+				)} ago`}</Text>
 			</Container>
 		);
 
