@@ -15,20 +15,12 @@ import Animated, {
 	useAnimatedStyle,
 	useSharedValue,
 	withSpring,
-	WithSpringConfig,
 } from 'react-native-reanimated';
 import Container from '../Container';
 import Text from '../Text';
 import XSVG from '@/assets/x.svg';
 import DownSVG from '@/assets/down.svg';
-
-const SPRING_CONFIG: WithSpringConfig = {
-	damping: 80,
-	overshootClamping: true,
-	restDisplacementThreshold: 0.1,
-	restSpeedThreshold: 0.1,
-	stiffness: 500,
-};
+import SPRING_CONFIG from '../utils/springConfig';
 
 export type BottomSheetRef = {
 	openSheet: () => void;
