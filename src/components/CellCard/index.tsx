@@ -1,9 +1,12 @@
 import React from 'react';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import { Share, TouchableOpacity } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
 import Container from '../Container';
 import Text from '../Text';
 import UsersSVG from '@/assets/users.svg';
 import LinkSVG from '@/assets/link.svg';
+import ShareSVG from '@/assets/share.svg';
 import { ListTypeEnum } from '../ListSwitch';
 import { Document } from '@/context/APIContext';
 
@@ -18,6 +21,21 @@ export default function CellCard({
 	listType,
 	position,
 }: Props) {
+	const onShare = async (): Promise<void> => {
+		try {
+			await Share.share({
+				message: `Hey there, I am sharing a document with you called ${Title}. I hope you like it!`,
+			});
+		} catch (error) {
+			showMessage({
+				message: `There was an error. Try again`,
+				duration: 2000,
+				floating: true,
+				type: 'danger',
+			});
+		}
+	};
+
 	if (listType === ListTypeEnum.LIST)
 		return (
 			<Container
@@ -80,9 +98,18 @@ export default function CellCard({
 						</Container>
 					</Container>
 				</Container>
-				<Text color='grey'>{`Created ${formatDistanceToNow(
-					new Date(CreatedAt)
-				)} ago`}</Text>
+				<Container
+					flexDirection='row'
+					justifyContent='space-between'
+					alignItems='center'
+				>
+					<Text color='grey'>{`Created ${formatDistanceToNow(
+						new Date(CreatedAt)
+					)} ago`}</Text>
+					<TouchableOpacity onPress={onShare}>
+						<ShareSVG width={20} height={20} />
+					</TouchableOpacity>
+				</Container>
 			</Container>
 		);
 
