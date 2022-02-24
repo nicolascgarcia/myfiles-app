@@ -12,7 +12,7 @@ import { faker } from '@faker-js/faker';
 import notificationsWebsocket from '@/hooks/notificationsWebsocket';
 import { sortByDate, sortByTitle } from '@/helpers/sortFunctions';
 
-type Props = {
+type APIManagerProps = {
 	children: ReactElement;
 };
 
@@ -51,7 +51,7 @@ export const APIContext = createContext<APIContextType>({
 
 export const useAPI = () => useContext<APIContextType>(APIContext);
 
-export default function APIManager({ children }: Props) {
+export default function APIManager({ children }: APIManagerProps) {
 	notificationsWebsocket({ showMessage });
 
 	const [APIItems, setAPIItems] = useState<Array<Document>>([]);
@@ -65,7 +65,7 @@ export default function APIManager({ children }: Props) {
 
 	const addData = (title: string, version: string) => {
 		const contributors: Contributors[] = Array.from(
-			{ length: Math.floor(Math.random() * 3) },
+			{ length: Math.ceil(Math.random() * 3) },
 			() => ({ ID: faker.datatype.uuid(), Name: faker.name.findName() })
 		);
 

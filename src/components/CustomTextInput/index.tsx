@@ -2,6 +2,7 @@ import React from 'react';
 import { TextInput } from 'react-native';
 import Container from '../Container';
 import Text from '../Text';
+import { texInputStyle } from './style';
 
 type TextInputProps = {
 	value: string;
@@ -22,14 +23,7 @@ export default function CustomTextInput({
 				{label}
 			</Text>
 			<TextInput
-				style={{
-					marginTop: 5,
-					paddingHorizontal: 15,
-					color: 'black',
-					borderWidth: 1,
-					borderRadius: 10,
-					borderColor: '#a1a1a142',
-				}}
+				style={texInputStyle}
 				placeholderTextColor='grey'
 				onChangeText={onChangeText}
 				value={value}
