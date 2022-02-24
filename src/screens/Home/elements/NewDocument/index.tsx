@@ -14,10 +14,10 @@ export default function NewDocument({ closeSheet }: NewDocumentProps) {
 	const { addData } = useAPI();
 
 	const submit = (): void => {
+		closeSheet();
 		addData(title, version);
 		onChangeTitle('');
 		onChangeVersion('');
-		closeSheet();
 	};
 
 	return (
